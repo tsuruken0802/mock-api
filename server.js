@@ -14,7 +14,7 @@ router.render = function (req, res) {
     // APiで共通のレスポンスを定義する
     const commonResponse = {
         "result": "OK",
-        "error": { "code": '001', "message": 'エラーメッセージ' },
+        "error": { "code": "001", "message": "エラーメッセージ" },
     }
     res.send({
         ...commonResponse,
