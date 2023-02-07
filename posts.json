@@ -3,12 +3,17 @@
     {
       "id": 1,
       "title": "投稿1",
-      "author": "田中1"
+      "author": "田中"
     },
     {
       "title": "投稿2",
-      "author": "佐藤1",
+      "author": "佐藤",
       "id": 2
+    },
+    {
+      "title": "タイトル",
+      "author": "佐藤",
+      "id": 3
     }
   ]
 }
