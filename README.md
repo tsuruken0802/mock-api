@@ -13,8 +13,3 @@ Run server.
 ```
 node server.js
 ```
-
-Request. For example, GET request looks like this:
-```
-curl --location --request GET 'http://localhost:3000/posts'
-```
