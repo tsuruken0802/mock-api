@@ -1,16 +1,18 @@
 const jsonServer = require('json-server')
 const server = jsonServer.create()
 
-// Path
+// constants
 const suffixApi ='/api'
 const posts = 'posts'
+const jsonFileName = 'posts.json'
 
-// APIで共通のレスポンスを定義する
+// common response
 const commonResponse = {
     "result": "OK",
-    "error": { "code": "001", "message": "エラーメッセージ" },
+    "error": { "code": "001", "message": "error message" },
 }
 
+// convert pagination key name
 server.get(suffixApi + '/' + posts, (req, res, next) => {
     if ('page' in req.query) {
       req.query._page = req.query.page;
@@ -21,9 +23,8 @@ server.get(suffixApi + '/' + posts, (req, res, next) => {
     next();
 });
 
-
 // posts
-const postsRouter = jsonServer.router('posts.json')
+const postsRouter = jsonServer.router(jsonFileName)
 server.use(suffixApi, postsRouter)
 postsRouter.render = function (req, res) {
     res.send({
