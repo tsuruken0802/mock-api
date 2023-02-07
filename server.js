@@ -7,15 +7,24 @@ const posts = 'posts'
 const jsonFileName = 'posts.json'
 
 // common response
-const commonResponse = {
-    "result": "OK",
+const successOrNg = {
+    "result": "OK"
+}
+const errorResponse = {
     "error": { "code": "001", "message": "error message" },
+}
+const paginationResponse = (hasNextPage, currentPage) => {
+    if (hasNextPage === undefined || currentPage === undefined) return {}
+    return {
+        "hasNextPage": hasNextPage,
+        "currentPage": Number(currentPage),
+    }
 }
 
 // convert pagination key name
 server.get(suffixApi + '/' + posts, (req, res, next) => {
     if ('page' in req.query) {
-      req.query._page = req.query.page;
+        req.query._page = req.query.page;
     }
     if ('limit' in req.query) {
         req.query._limit = req.query.limit;
@@ -27,8 +36,16 @@ server.get(suffixApi + '/' + posts, (req, res, next) => {
 const postsRouter = jsonServer.router(jsonFileName)
 server.use(suffixApi, postsRouter)
 postsRouter.render = function (req, res) {
+    const params = new URLSearchParams(req._parsedUrl.query);
+    const limit = params.get('limit')
+    let hasNextPage;
+    if (limit) {
+        hasNextPage = res.locals.data.length >= limit;
+    }
     res.send({
-        ...commonResponse,
+        ...successOrNg,
+        ...errorResponse,
+        ...paginationResponse(hasNextPage, params.get('page')),
         "posts": res.locals.data
     })
 }
