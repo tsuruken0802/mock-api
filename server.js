@@ -1,16 +1,10 @@
 const jsonServer = require('json-server')
 const server = jsonServer.create()
-const router = jsonServer.router('db.json')
 const middlewares = jsonServer.defaults()
 
-server.use(middlewares)
-server.use((req, res, next) => {
-    next()
-})
+const suffixApi ='/api'
 
-server.use(router)
-
-router.render = function (req, res) {
+function commonResponse(req, res) {
     // APiで共通のレスポンスを定義する
     const commonResponse = {
         "result": "OK",
@@ -21,6 +15,14 @@ router.render = function (req, res) {
         ...res.locals.data
     })
 }
+
+// middlewares
+server.use(middlewares)
+
+// posts
+const postsRouter = jsonServer.router('posts.json')
+server.use(suffixApi, postsRouter)
+postsRouter.render = commonResponse
 
 server.listen(3000, () => {
     console.log('JSON Server is running')
