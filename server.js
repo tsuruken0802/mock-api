@@ -1,6 +1,5 @@
 const jsonServer = require('json-server')
 const server = jsonServer.create()
-const middlewares = jsonServer.defaults()
 
 // Path
 const suffixApi ='/api'
@@ -22,8 +21,6 @@ server.get(suffixApi + '/' + posts, (req, res, next) => {
     next();
 });
 
-// middlewares
-server.use(middlewares)
 
 // posts
 const postsRouter = jsonServer.router('posts.json')
