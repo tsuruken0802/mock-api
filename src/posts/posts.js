@@ -12,7 +12,7 @@ exports.convertPaginationKey = (req, res, next) => {
     next();
 };
 
-// posts
+// posts router
 const router = jsonServer.router('src/posts/db.json')
 router.render = function (req, res) {
     const params = new URLSearchParams(req._parsedUrl.query);
