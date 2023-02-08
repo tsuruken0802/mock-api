@@ -22,7 +22,7 @@ router.render = function (req, res) {
         hasNextPage = res.locals.data.length >= limit;
     }
     res.send({
-        ...common.successOrNg,
+        ...common.resultFlg,
         ...common.errorResponse,
         ...common.paginationResponse(hasNextPage, params.get('page')),
         "posts": res.locals.data

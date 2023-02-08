@@ -1,4 +1,4 @@
-exports.successOrNg = {
+exports.resultFlg = {
     "result": "OK"
 }
 
